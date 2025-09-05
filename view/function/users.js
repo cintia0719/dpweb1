@@ -1,4 +1,4 @@
-function validar_form() {
+function validar_form(tipo) {
    let nro_identidad = document.getElementById("nro_identidad").value;
    let razon_social = document.getElementById("razon_social").value;
    let telefono = document.getElementById("telefono").value;
@@ -25,8 +25,13 @@ function validar_form() {
       icon: "success",
       draggable: true
    });
-
-   registrarUsuario();
+   if (tipo == "nuevo") {
+      registrarUsuario();
+   }
+   if (tipo == "actualizar") {
+      actualizarUsuario();
+   }
+   
 
 }
 
@@ -180,6 +185,18 @@ async function edit_user() {
    } catch (error) {
       console.log('oops, ocurrio un error '+ error);
    }
+}
+if (document.querySelector('#frm_edit_user')) {
+   // evita que e envie el formulario
+   let frm_user = document.querySelector('#frm_edit_user');
+   frm_user.onsubmit = function (e) {
+      e.preventDefault();
+      validar_form("actualizar");
+   }
+}
+
+async function actualizarUsuario() {
+   alert('actualizar');
 }
 
 
