@@ -31,7 +31,7 @@ function validar_form(tipo) {
    if (tipo == "actualizar") {
       actualizarUsuario();
    }
-   
+
 
 }
 
@@ -136,6 +136,8 @@ async function view_users() {
                     
                     <td>
                     <a href="` + base_url + `edit-user/` + user.id + `">Editar</a>
+                    <a href="${base_url}edit-user/${user.id}" class="btn btn-primary btn-sm">Editar</a>
+                    <button onclick="eliminarUsuario(${user.id})" class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                 </tr>`;
          });
@@ -159,7 +161,7 @@ async function edit_user() {
       const datos = new FormData();
       datos.append('id_persona', id_persona);
 
-      let respuesta = await fetch(base_url + 'control/usuarioController.php?tipo=ver',{
+      let respuesta = await fetch(base_url + 'control/usuarioController.php?tipo=ver', {
          method: 'POST',
          mode: 'cors',
          cache: 'no-cache',
@@ -170,20 +172,20 @@ async function edit_user() {
          alert(json.msg);
          return;
       }
-      document.getElementById('nro_identidad').value =json.data.nro_identidad;
-      document.getElementById('razon_social').value =json.data.razon_social;
-      document.getElementById('telefono').value =json.data.telefono;
-      document.getElementById('correo').value =json.data.correo;
-      document.getElementById('departamento').value =json.data.departamento;
-      document.getElementById('provincia').value =json.data.provincia;
-      document.getElementById('distrito').value =json.data.distrito;
-      document.getElementById('cod_postal').value =json.data.cod_postal;
-      document.getElementById('direccion').value =json.data.direccion;
-      document.getElementById('rol').value =json.data.rol;
-    
-     
+      document.getElementById('nro_identidad').value = json.data.nro_identidad;
+      document.getElementById('razon_social').value = json.data.razon_social;
+      document.getElementById('telefono').value = json.data.telefono;
+      document.getElementById('correo').value = json.data.correo;
+      document.getElementById('departamento').value = json.data.departamento;
+      document.getElementById('provincia').value = json.data.provincia;
+      document.getElementById('distrito').value = json.data.distrito;
+      document.getElementById('cod_postal').value = json.data.cod_postal;
+      document.getElementById('direccion').value = json.data.direccion;
+      document.getElementById('rol').value = json.data.rol;
+
+
    } catch (error) {
-      console.log('oops, ocurrio un error '+ error);
+      console.log('oops, ocurrio un error ' + error);
    }
 }
 if (document.querySelector('#frm_edit_user')) {
@@ -196,7 +198,78 @@ if (document.querySelector('#frm_edit_user')) {
 }
 
 async function actualizarUsuario() {
-   alert('actualizar');
+   const datos = new FormData(frm_edit_user);
+   let respuesta = await fetch(base_url + 'control/usuarioController.php?tipo=actualizar', {
+      method: 'POST',
+      mode: 'cors',
+      cache: 'no-cache',
+      body: datos
+   });
+   json = await respuesta.json();
+   if (!json.status) {
+      alert("Ooops, ocurrio un error al actualizar, intentelo nuevamente");
+      console.log(json.msg);
+      return;
+   } else {
+      alert(json.msg);
+   }
 }
 
 
+
+// Eliminar
+async function eliminarUsuario(id_persona) {
+    // Confirmar eliminación
+    const confirmacion = await Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Esta acción no se puede deshacer",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Sí, eliminar',
+        cancelButtonText: 'Cancelar'
+    });
+
+    if (confirmacion.isConfirmed) {
+        try {
+            const datos = new FormData();
+            datos.append("id_persona", id_persona);
+            
+            let respuesta = await fetch(
+                base_url + "control/UsuarioController.php?tipo=eliminar",
+                {
+                    method: "POST",
+                    mode: "cors",
+                    cache: "no-cache",
+                    body: datos,
+                }
+            );
+            
+            let json = await respuesta.json();
+            
+            if (json.status) {
+                Swal.fire({
+                    title: 'Eliminado',
+                    text: json.msg,
+                    icon: 'success'
+                });
+                // Recargar la lista de usuarios
+                view_users();
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: json.msg,
+                    icon: 'error'
+                });
+            }
+        } catch (error) {
+            console.log("Error al eliminar usuario: " + error);
+            Swal.fire({
+                title: 'Error',
+                text: 'Ocurrió un error al eliminar el usuario',
+                icon: 'error'
+            });
+        }
+    }
+}

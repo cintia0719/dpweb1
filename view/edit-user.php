@@ -83,6 +83,7 @@
                     <div style=" display:flex; justify-content:center; gap:20px">
                         <button type="submit"   class="btn btn-info">Actualizar</button >
                         <a hret="<?=BASE_URL ?>users" class="btn btn-danger" >Cancelar</a>
+                        
                     </div>
                 </form>
             </div>
