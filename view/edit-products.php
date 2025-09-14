@@ -39,6 +39,9 @@
         <label for="idProveedor" class="form-label">Proveedor: </label>
         <select class="form-control" name="idProveedor" id="idProveedor" required>
         <option disabled>Seleccione</option>
+            <option value="admin">Administrador</option>
+            <option value="user">Usuario</option>
+            <option value="guest">Invitado</option>
         </select>
     </div>
     <center>
