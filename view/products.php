@@ -18,6 +18,6 @@
     </table>
 </div>
 </div>
-<script src="<?php echo BASE_URL; ?>/views/js/function_products.js"></script>  
+<script src="<?php echo BASE_URL; ?>/view/js/function_products.js"></script>  
 
 <script>listar_categories();</script>
