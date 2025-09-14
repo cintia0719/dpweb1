@@ -28,7 +28,13 @@
             </form>
         </div>
     </div>
-
+<script>listar_categorias_admin();</script>
+<script>
+    const id_cat = <?php $pagina = explode("/", $_GET['views']);
+                    echo $pagina['1'];
+                    ?>;
+    ver_categoria(id_cat);
+</script>
 <script src="<?php echo BASE_URL; ?>view/function/categories.js"></script>
     
 
