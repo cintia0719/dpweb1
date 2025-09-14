@@ -39,11 +39,19 @@
         <label for="idProveedor" class="form-label">Proveedor: </label>
         <select class="form-control" name="idProveedor" id="idProveedor" required>
         <option disabled>Seleccione</option>
-            <option value="admin">Administrador</option>
-            <option value="user">Usuario</option>
-            <option value="guest">Invitado</option>
         </select>
     </div>
+         <div class="mb-3 row">
+                        <label for="rol" class="col-sm-2 col-form-label">Rol</label>
+                        <div class="col-sm-10">
+                            <select class="form-select" aria-label="default select example" id="rol" name="rol" required>
+                                <option value="admin"></option>
+                                <option value="admin">Administrador</option>
+                                <option value="user">Usuario</option>
+                                <option value="guest">Invitado</option>
+                            </select>
+                        </div>
+                    </div>
     <center>
         <button type="button" onclick="actualizar_producto()" class="btn btn-danger">Actualizar</button>
         <a href="<?php echo BASE_URL; ?>/view-producto-admin" type="reset" class="btn btn-dark">Cancelar</a>
