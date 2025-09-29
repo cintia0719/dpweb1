@@ -1,23 +1,28 @@
-<div id="form-control">
-<div class="col-12">
-    <table border="1" style="width:100%">
+<div class="container">
+    <h4 class="mt-3 mb-3">Lista de Productos</h4>
+    <a href="<?= BASE_URL ?>new-product" class="btn btn-primary">Nuevo +</a>
+    <br><br>
+    <table class="table table-success table-striped-columns">
         <thead>
             <tr>
-                <th>Nro.</th>
-                <th>Codigo</th>
-                <th>Nombre</th>
-                <th>Precio</th>
-                <th>Stock</th>
-                <th>Categoria</th>
-                <th>Proveedor</th>
-                <th>Acciones</th>
+                <th class="text-center">Nro</th>
+                <th class="text-center">Codigo</th>
+                <th class="text-center">Nombre</th>
+                <th class="text-center">Precio</th>
+                <th class="text-center">Stock</th>
+                <th class="text-center">Categoria</th>
+                <th class="text-center">Fecha_vencimiento</th>
+                <th class="text-center">Imagen</th>
+                <th class="text-center">Acciones</th>
+
             </tr>
         </thead>
-        <tbody id="tbl_producto">
+        <tbody id="content_products">
+
         </tbody>
     </table>
 </div>
-</div>
-<script src="<?php echo BASE_URL; ?>/view/js/function_products.js"></script>  
+<script src="<?= BASE_URL ?>view/function/product.js"></script>
+<script>
 
-<script>listar_categories();</script>
+</script>
