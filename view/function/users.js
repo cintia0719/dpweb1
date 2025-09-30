@@ -135,8 +135,12 @@ async function view_users() {
                     
                     
                     <td>
+<<<<<<< Updated upstream
 
                     <a href="${base_url}edit-user/${user.id}" class="btn btn-primary btn-sm">Editar</a>
+=======
+                     <a href="${base_url}edit-user/${user.id}" class="btn btn-primary btn-sm">Editar</a> 
+>>>>>>> Stashed changes
                     <button onclick="eliminarUsuario(${user.id})" class="btn btn-danger btn-sm">Eliminar</button>
                     </td>
                 </tr>`;
@@ -230,46 +234,12 @@ async function eliminarUsuario(id_persona) {
         confirmButtonText: 'Sí, eliminar',
         cancelButtonText: 'Cancelar'
     });
-
     if (confirmacion.isConfirmed) {
         try {
             const datos = new FormData();
             datos.append("id_persona", id_persona);
-            
-            let respuesta = await fetch(
-                base_url + "control/UsuarioController.php?tipo=eliminar",
-                {
-                    method: "POST",
-                    mode: "cors",
-                    cache: "no-cache",
-                    body: datos,
-                }
-            );
-            
-            let json = await respuesta.json();
-            
-            if (json.status) {
-                Swal.fire({
-                    title: 'Eliminado',
-                    text: json.msg,
-                    icon: 'success'
-                });
-                // Recargar la lista de usuarios
-                view_users();
-            } else {
-                Swal.fire({
-                    title: 'Error',
-                    text: json.msg,
-                    icon: 'error'
-                });
-            }
         } catch (error) {
-            console.log("Error al eliminar usuario: " + error);
-            Swal.fire({
-                title: 'Error',
-                text: 'Ocurrió un error al eliminar el usuario',
-                icon: 'error'
-            });
+            console.log('oops , ocurrio un eror' + error);
         }
     }
 }

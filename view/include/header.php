@@ -37,11 +37,22 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL ?>products">Products</a>
+<<<<<<< Updated upstream
                         </li>
 
                         
+=======
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>product">Product</a>
+                        </li>
+
+>>>>>>> Stashed changes
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL ?>categories">Categories</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="<?= BASE_URL ?>categoria">Categoria</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Clients</a>
