@@ -99,13 +99,13 @@ class UsuarioModel{
 
     // Proveedor
      public function verProveedores(){
-        $arr_usuarios = array();
+        $arr_proveedor = array();
         $consulta = "SELECT* from persona WHERE rol='Proveedor'";
         $sql = $this->conexion->query($consulta);
         while ($objeto = $sql->fetch_object()) {
-            array_push($arr_usuarios, $objeto);
+            array_push($arr_proveedor, $objeto);
         }
-        return $arr_usuarios;
+        return $arr_proveedor;
     }
 
 
