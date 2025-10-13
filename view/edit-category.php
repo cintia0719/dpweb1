@@ -37,3 +37,6 @@
     </div>
 </div>
 <script src="<?php echo BASE_URL ?>view/function/category.js"> </script>
+<script>
+    edit_category();
+</script>

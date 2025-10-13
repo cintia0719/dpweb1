@@ -1,6 +1,6 @@
 <div class="container">
-    <h4 class="mt-3 mb-3">lista de Usuarios</h4>
-    <a href="<?= BASE_URL ?>new-user" class="btn btn-primary">Nuevo +</a>
+    <h4 class="mt-3 mb-3">Lista de Proveedor</h4>
+    <a href="<?= BASE_URL ?>new-proveedor" class="btn btn-primary">Nuevo +</a>
     <br><br>
 <table class="table table-success table-striped-columns">
     <thead>
@@ -15,11 +15,11 @@
             
         </tr>
     </thead>
-    <tbody id="content_users">
+    <tbody id="content_proveedores">
         
     </tbody>
 </table>
 </div>
-<script src="<?= BASE_URL ?>view/function/users.js"></script>
+<script src="<?= BASE_URL ?>view/function/proveedores.js"></script>
 <!--
 <script>view_users();</script>-->

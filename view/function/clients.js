@@ -18,28 +18,28 @@ function validar_form(tipo) {
         return;
     }
     if (tipo == "nuevo") {
-        registrarUsuario();
+        registrarCliente();
     }
     if (tipo == "actualizar") {
-        actualizarUsuario();
+        actualizarCliente();
     }
 
 }
 
-if (document.querySelector('#frm_user')) {
+if (document.querySelector('#frm_client')) {
     // evita que se envie el formulario
-    let frm_user = document.querySelector('#frm_user');
-    frm_user.onsubmit = function (e) {
+    let frm_client = document.querySelector('#frm_client');
+    frm_client.onsubmit = function (e) {
         e.preventDefault();
         validar_form("nuevo");
     }
 }
-async function registrarUsuario() {
+async function registrarCliente() {
     try {
         //capturar campos de formulario (HTML)
-        const datos = new FormData(frm_user);
+        const datos = new FormData(frm_client);
         //enviar datos a controlador
-        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=registrar', {
+        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=registrar_cliente', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -49,12 +49,12 @@ async function registrarUsuario() {
         // validamos que json.status sea = True
         if (json.status) { //true
             alert(json.msg);
-            document.getElementById('frm_user').reset();
+            document.getElementById('frm_client').reset();
         } else {
             alert(json.msg);
         }
     } catch (e) {
-        console.log("Error al registrar Usuario:" + e);
+        console.log("Error al registrar cliente:" + e);
     }
 }
 
@@ -88,15 +88,15 @@ async function iniciar_sesion() {
     }
 }
 
-async function view_users() {
+async function view_clients() {
     try {
-        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=ver_usuarios', {
+        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=ver_clients', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache'
         });
         json = await respuesta.json();
-        contenidot = document.getElementById('content_users');
+        contenidot = document.getElementById('content_clients');
         if (json.status) {
             let cont = 1;
             json.data.forEach(usuario => {
@@ -116,7 +116,7 @@ async function view_users() {
                             <td>${usuario.rol}</td>
                             <td>${estado}</td>
                             <td>
-                                <a href="`+ base_url + `edit-user/` + usuario.id + `">Editar</a>
+                                <a href="`+ base_url + `edit-client/` + usuario.id + `">Editar</a>
                                 <button class="btn btn-danger" onclick="fn_eliminar(` + usuario.id + `);">Eliminar</button>
                             </td>
                 `;
@@ -128,11 +128,11 @@ async function view_users() {
         console.log('error en mostrar usuario ' + e);
     }
 }
-if (document.getElementById('content_users')) {
-    view_users();
+if (document.getElementById('content_clients')) {
+    view_clients();
 }
 
-async function edit_user() {
+async function edit_client() {
     try {
         let id_persona = document.getElementById('id_persona').value;
         const datos = new FormData();
@@ -173,7 +173,7 @@ if (document.querySelector('#frm_edit_user')) {
     }
 }
 
-async function actualizarUsuario() {
+async function actualizarCliente() {
     const datos = new FormData(frm_edit_user);
     let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=actualizar', {
         method: 'POST',

@@ -37,25 +37,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL ?>products">Products</a>
-<<<<<<< Updated upstream
                         </li>
 
-                        
-=======
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_URL ?>product">Product</a>
-                        </li>
-
->>>>>>> Stashed changes
                         <li class="nav-item">
                             <a class="nav-link" href="<?= BASE_URL ?>categories">Categories</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="<?= BASE_URL ?>categoria">Categoria</a>
+                            <a class="nav-link" href="<?= BASE_URL ?>clients">Clients</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Clients</a>
+                            <a class="nav-link" href="<?= BASE_URL ?>proveedores">Proveedores</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Compras</a>
@@ -66,9 +57,7 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="#">Sales</a>
-                        </li>
-                        
-                        
+                        </li> 
                     </ul>
                     <form class="d-flex" role="search">
                         <ul class="navbar-nav me-auto mb-2 mb-lg-0">

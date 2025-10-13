@@ -4,10 +4,10 @@
         <div class="card">
 
         <div class="card-header" style="text-align: center;">
-                Registro de usuario
+                Registro de Proveedor
             </div>
 
-            <form id="frm_user" action="" method="">
+            <form id="frm_proveedor" action="" method="">
                 <div class="card-body">
                     <div class="mb-3 row">
                         <label for="nro_identidad" class="col-sm-2 col-form-label">Nro de documento</label>
@@ -67,13 +67,8 @@
                     <div class="mb-3 row">
                         <label for="rol" class="col-sm-2 col-form-label">Rol</label>
                         <div class="col-sm-10">
-                            <select class="form-select" aria-label="default select example" id="rol" name="rol" required>
-                                <option value="admin"></option>
-                                <option value="admin">Administrador</option>
-                                <option value="user">Usuario</option>
-                                <option value="guest">Invitado</option>
-                                <option value="supplier">proveedor</option>
-                                
+                            <select class="form-control" id="rol" name="rol" required readonly>
+                                <option value="proveedor" selected>proveedor</option>
                             </select>
                         </div>
                     </div>
@@ -81,10 +76,10 @@
                         <button type="submit"   class="btn btn-info">Registrar</button >
                         <button type="reset"   class="btn btn-primary" id="clearBtn">Limpiar</button>
                         <!--<button type="button" onclick="alerth()" class="btn btn-danger" >Cancelar</button>-->
-                        <a href="<?=BASE_URL ?>users" class="btn btn-danger">Cancelar</a>
+                        <a href="<?=BASE_URL ?>proveedores" class="btn btn-danger">Cancelar</a>
                     </div>
                 </form>
             </div>
     </div>
     <!-- FIN de cuerpo de pagina -->
-     <script src="<?php echo BASE_URL?>view/function/users.js"> </script>
+     <script src="<?php echo BASE_URL?>view/function/proveedores.js"> </script>
