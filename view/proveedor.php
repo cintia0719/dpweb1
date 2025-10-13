@@ -15,11 +15,11 @@
             
         </tr>
     </thead>
-    <tbody id="content_proveedores">
+    <tbody id="content_proveedor">
         
     </tbody>
 </table>
 </div>
-<script src="<?= BASE_URL ?>view/function/proveedores.js"></script>
+<script src="<?= BASE_URL ?>view/function/proveedor.js"></script>
 <!--
 <script>view_users();</script>-->
