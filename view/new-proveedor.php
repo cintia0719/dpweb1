@@ -76,10 +76,10 @@
                         <button type="submit"   class="btn btn-info">Registrar</button >
                         <button type="reset"   class="btn btn-primary" id="clearBtn">Limpiar</button>
                         <!--<button type="button" onclick="alerth()" class="btn btn-danger" >Cancelar</button>-->
-                        <a href="<?=BASE_URL ?>proveedores" class="btn btn-danger">Cancelar</a>
+                        <a href="<?=BASE_URL ?>proveedor" class="btn btn-danger">Cancelar</a>
                     </div>
                 </form>
             </div>
     </div>
     <!-- FIN de cuerpo de pagina -->
-     <script src="<?php echo BASE_URL?>view/function/proveedores.js"> </script>
+     <script src="<?php echo BASE_URL?>view/function/proveedor.js"> </script>
