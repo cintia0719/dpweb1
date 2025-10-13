@@ -39,7 +39,7 @@ async function registrarProveedor() {
         //capturar campos de formulario (HTML)
         const datos = new FormData(frm_proveedor);
         //enviar datos a controlador
-        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=registrar_proveedor', {
+        let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=registrar', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -54,7 +54,7 @@ async function registrarProveedor() {
             alert(json.msg);
         }
     } catch (e) {
-        console.log("Error al registrar proveedor:" + e);
+        console.log("Error al registrar Proveedor:" + e);
     }
 }
 
@@ -88,7 +88,7 @@ async function iniciar_sesion() {
     }
 }
 
-async function view_proveedores() {
+async function view_proveedor() {
     try {
         let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=ver_proveedores', {
             method: 'POST',
@@ -96,7 +96,7 @@ async function view_proveedores() {
             cache: 'no-cache'
         });
         json = await respuesta.json();
-        contenidot = document.getElementById('content_proveedores');
+        contenidot = document.getElementById('content_proveedor');
         if (json.status) {
             let cont = 1;
             json.data.forEach(usuario => {
@@ -128,8 +128,8 @@ async function view_proveedores() {
         console.log('error en mostrar usuario ' + e);
     }
 }
-if (document.getElementById('content_proveedores')) {
-    view_proveedores();
+if (document.getElementById('content_proveedor')) {
+    view_proveedor();
 }
 
 async function edit_proveedor() {
@@ -164,9 +164,9 @@ async function edit_proveedor() {
         console.log('oops, ocurrió un error ' + error);
     }
 }
-if (document.querySelector('#frm_edit_user')) {
+if (document.querySelector('#frm_edit_proveedor')) {
     // evita que se envie el formulario
-    let frm_user = document.querySelector('#frm_edit_user');
+    let frm_user = document.querySelector('#frm_edit_proveedor');
     frm_user.onsubmit = function (e) {
         e.preventDefault();
         validar_form("actualizar");
@@ -174,8 +174,8 @@ if (document.querySelector('#frm_edit_user')) {
 }
 
 async function actualizarProveedor() {
-    const datos = new FormData(frm_edit_user);
-    let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=actualizar', {
+    const datos = new FormData(frm_edit_proveedor);
+    let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=actualizar_proveedor', {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
@@ -211,6 +211,6 @@ async function eliminar(id) {
         return;
     }else{
         alert(json.msg);
-        location.replace(base_url + 'users');
+        location.replace(base_url + 'proveedor);
     }
 }
