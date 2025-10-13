@@ -125,7 +125,7 @@ async function view_proveedor() {
             });
         }
     } catch (error) {
-        console.log('error en mostrar usuario ' + e);
+        console.log('error en mostrar proveedor ' + e);
     }
 }
 if (document.getElementById('content_proveedor')) {
