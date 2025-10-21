@@ -71,8 +71,8 @@
                 <div class="mb-3 row">
                     <label for="rol" class="col-sm-2 col-form-label">Rol</label>
                     <div class="col-sm-10">
-                        <select class="form-control" id="rol" name="rol" required readonly>
-                            <option value="proveedor" selected>proveedor</option>
+                        <select class="form-select" aria-label="default select example" id="rol" name="rol" required readonly>
+                            <option value="proveedor">Proveedor</option>
                         </select>
                     </div>
                 </div>

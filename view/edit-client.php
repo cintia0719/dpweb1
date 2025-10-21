@@ -11,7 +11,7 @@
 
         }
         ?>
-        <form id="frm_edit_user" action="" method="">
+        <form id="frm_edit_client" action="" method="">
             <input type="hidden" id="id_persona" name="id_persona" value="<?= $ruta[1]; ?>">
             <div class="card-body">
                 <div class="mb-3 row">
@@ -79,16 +79,16 @@
                 </div>
                 <div style=" display:flex; justify-content:center; gap:20px">
                     <button type="submit" class="btn btn-info">Actualizar</button>
-                    <a hret="<?= BASE_URL ?>users" class="btn btn-danger">Cancelar</a>
+                    <a hret="<?= BASE_URL ?>clients" class="btn btn-danger">Cancelar</a>
 
                 </div>
         </form>
     </div>
 </div>
 <!-- FIN de cuerpo de pagina -->
-     <script src="<?php echo BASE_URL?>view/function/users.js"> </script>
+     <script src="<?php echo BASE_URL?>view/function/clients.js"> </script>
      <script>
-        edit_user();
+        edit_client();
      </script>
     
 

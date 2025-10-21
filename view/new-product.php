@@ -1,5 +1,5 @@
 <!-- inicio de cuerpo de pagina -->
-<div class="container" style="margin-top:170px">
+<div class="container" style="margin-top:17px">
     <div class="card">
 
         <div class="card-header" style="text-align: center;">

@@ -164,17 +164,17 @@ async function edit_client() {
         console.log('oops, ocurrió un error ' + error);
     }
 }
-if (document.querySelector('#frm_edit_user')) {
+if (document.querySelector('#frm_edit_client')) {
     // evita que se envie el formulario
-    let frm_user = document.querySelector('#frm_edit_user');
-    frm_user.onsubmit = function (e) {
+    let frm_client = document.querySelector('#frm_edit_client');
+    frm_client.onsubmit = function (e) {
         e.preventDefault();
         validar_form("actualizar");
     }
 }
 
 async function actualizarCliente() {
-    const datos = new FormData(frm_edit_user);
+    const datos = new FormData(frm_edit_client);
     let respuesta = await fetch(base_url + 'control/UsuarioController.php?tipo=actualizar', {
         method: 'POST',
         mode: 'cors',
@@ -211,6 +211,6 @@ async function eliminar(id) {
         return;
     }else{
         alert(json.msg);
-        location.replace(base_url + 'users');
+        location.replace(base_url + 'clients');
     }
 }

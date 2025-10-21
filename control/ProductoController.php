@@ -40,8 +40,8 @@ if ($tipo == "registrar") {
     }
     echo json_encode($arrResponse);
     */
-    
-    
+
+
     if (!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK) {
         echo json_encode(['status' => false, 'msg' => 'Error, imagen no recibida']);
         exit;
@@ -75,7 +75,7 @@ if ($tipo == "registrar") {
         echo json_encode(['status' => false, 'msg' => 'No se pudo guardar la imagen']);
         exit;
     }
-    $id = $objProducto->registrar($codigo,$nombre,$detalle,$precio,$stock,$id_categoria,$fecha_vencimiento,$rutaRelativa, $id_proveedor);
+    $id = $objProducto->registrar($codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $rutaRelativa, $id_proveedor);
     if ($id > 0) {
         echo json_encode(['status' => true, 'msg' => 'Registrado correctamente', 'id' => $id, 'img' => $rutaRelativa]);
     } else {
@@ -83,14 +83,16 @@ if ($tipo == "registrar") {
         echo json_encode(['status' => false, 'msg' => 'Error, falló en registro']);
     }
     exit;
-    
 }
 
 
 /* Ver productos registrados */
 if ($tipo == "ver_productos") {
+    $respuesta = array('status' => false, 'msg' => '');
     $productos = $objProducto->verProductos();
-    echo json_encode($productos);
+    $respuesta['status'] = true;
+    $respuesta['data'] = $productos;
+    echo json_encode($respuesta);
 }
 
 /* Ver para editar */
@@ -111,6 +113,9 @@ if ($tipo == "ver") {
 
 /* Para actualizar */
 if ($tipo == "actualizar") {
+
+
+    //print_r($_POST);
     $id_producto = $_POST['id_producto'];
     $codigo = $_POST['codigo'];
     $nombre = $_POST['nombre'];
@@ -122,18 +127,64 @@ if ($tipo == "actualizar") {
     $id_proveedor = $_POST['id_proveedor'];
 
     if ($id_producto == "" || $codigo == "" || $nombre == "" || $detalle == "" || $precio == "" || $stock == "" || $id_categoria == "" || $fecha_vencimiento == "" || $id_proveedor == "") {
-
         $arrResponse = array('status' => false, 'msg' => 'Error, campos vacíos');
     } else {
-        $existeID = $objProducto->ver($id_producto);
-        if (!$existeID) {
+        $producto = $objProducto->ver($id_producto);
+        if (!$producto) {
+            //devolver mensaje
             $arrResponse = array('status' => false, 'msg' => 'Error, producto no existe en BD');
             echo json_encode($arrResponse);
+            //cerrar funcion
             exit;
         } else {
-            $actualizar = $objProducto->actualizar($id_producto, $codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $id_proveedor);
+            if (!isset($_FILES['imagen']) || $_FILES['imagen']['error'] !== UPLOAD_ERR_OK) {
+                //echo "no se envio la imagen";
+                $imagen = $producto->imagen;
+            } else {
+                //echo "si se envio la imagen";
+                $file = $_FILES['imagen'];
+                $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+                $extPermitidas = ['jpg', 'jpeg', 'png'];
+
+                if (!in_array($ext, $extPermitidas)) {
+                    echo json_encode(['status' => false, 'msg' => 'Formato de imagen no permitido']);
+                    exit;
+                }
+                if ($file['size'] > 5 * 1024 * 1024) { // 5MB
+                    echo json_encode(['status' => false, 'msg' => 'La imagen supera 2MB']);
+                    exit;
+                }
+                $carpetaUploads = "../uploads/productos/";
+                if (!is_dir($carpetaUploads)) {
+                    @mkdir($carpetaUploads, 0775, true);
+                }
+
+                $nombreUnico = uniqid('prod_') . '.' . $ext;
+                $rutaFisica  = $carpetaUploads . $nombreUnico;
+                $rutaRelativa = "uploads/productos/" . $nombreUnico;
+
+                if (!move_uploaded_file($file['tmp_name'], $rutaFisica)) {
+                    echo json_encode(['status' => false, 'msg' => 'No se pudo guardar la imagen']);
+                    exit;
+                }
+                $id = $objProducto->registrar($codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $rutaRelativa, $id_proveedor);
+                if ($id > 0) {
+                    echo json_encode(['status' => true, 'msg' => 'Registrado correctamente', 'id' => $id, 'img' => $rutaRelativa]);
+                } else {
+                    @unlink($rutaFisica); // revertir archivo si falló BD
+                    echo json_encode(['status' => false, 'msg' => 'Error, falló en registro']);
+                }
+                exit;
+
+
+
+                /*subir imagen en la $carpeta
+                guardar la imagen con la variable imagen */
+            }
+            //actualizar
+            $actualizar = $objProducto->actualizar($id_producto, $codigo, $nombre, $detalle, $precio, $stock, $id_categoria, $fecha_vencimiento, $id_proveedor, $imagen);
             if ($actualizar) {
-                $arrResponse = array('status' => true, 'msg' => "Producto actualizado correctamente");
+                $arrResponse = array('status' => true, 'msg' => "Actualizando correctamente");
             } else {
                 $arrResponse = array('status' => false, 'msg' => $actualizar);
             }

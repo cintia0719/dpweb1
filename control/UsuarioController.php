@@ -276,7 +276,7 @@ if ($tipo == "iniciar_sesion") {
 
 if ($tipo == "ver_proveedores") {
     $respuesta = array('status' => false, 'msg' => 'fallo el controlador');
-    $usuarios = $objPersona->verclientes();
+    $usuarios = $objPersona->verProveedores();
     if (count($usuarios)) {
         $respuesta = array('status' => true, 'msg' => '', 'data' => $usuarios);
     }
@@ -310,7 +310,7 @@ if ($tipo == "registrar_proveedor") {
         if ($existePersona > 0) {
             $arrResponse = array('status' => false, 'msg' => 'Error: nro documento ya existe');
         } else {
-            $respuesta = $objPersona->registrarCliente($nro_identidad, $razon_social, $telefono, $correo, $departamento, $provincia, $distrito, $cod_postal, $direccion, $rol);
+            $respuesta = $objPersona->registrarProveedor($nro_identidad, $razon_social, $telefono, $correo, $departamento, $provincia, $distrito, $cod_postal, $direccion, $rol);
             if ($respuesta) {
                 $arrResponse = array('status' => true, 'msg' => 'REGISTRADO CORRECTAMENTE');
             } else {

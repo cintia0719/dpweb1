@@ -76,13 +76,13 @@ class UsuarioModel{
     }*/
 
     public function verClientes(){
-        $arr_usuarios = array();
+        $arr_clientes = array();
         $consulta = "SELECT* from persona WHERE rol='Cliente'";
         $sql = $this->conexion->query($consulta);
         while ($objeto = $sql->fetch_object()) {
-            array_push($arr_usuarios, $objeto);
+            array_push($arr_clientes, $objeto);
         }
-        return $arr_usuarios;
+        return $arr_clientes;
     }
 
 

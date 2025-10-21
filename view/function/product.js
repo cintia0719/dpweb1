@@ -6,8 +6,8 @@ function validar_form(tipo) {
     let stock = document.getElementById("stock").value;
     let id_categoria = document.getElementById("id_categoria").value;
     let fecha_vencimiento = document.getElementById("fecha_vencimiento").value;
-    let imagen = document.getElementById("imagen").value;
-    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "" || imagen == "") {
+    //let imagen = document.getElementById("imagen").value;
+    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "") {
         Swal.fire({
             title: "Error campos vacios!",
             icon: "error",
@@ -38,7 +38,7 @@ async function registrarProducto() {
         //capturar campos de formulario (HTML)
         const datos = new FormData(frm_product);
         //enviar datos a controlador
-        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=registrar', {
+        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=registrar_productos', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -67,10 +67,10 @@ async function view_products() {
         });
 
         let json = await respuesta.json();
-        let content_products = document.getElementById('content_product');
+        let content_products = document.getElementById('content_products');
         content_products.innerHTML = ''; // limpiamos antes de insertar
 
-        json.forEach((product, index) => {
+        json.data.forEach((product, index) => {
             let fila = document.createElement('tr');
             fila.innerHTML = `
                 <td>${index + 1}</td>
@@ -84,36 +84,18 @@ async function view_products() {
                 <td>${product.fecha_vencimiento}</td>
                 -->
                 <td>${product.id_proveedor}</td>
+                
                 <td>
-                    <a href="` + base_url + `edit-products/` + product.id + `" class="btn btn-success">Editar</a>
+                    <a href="` + base_url + `edit-product/` + product.id + `" class="btn btn-success">Editar</a>
                     <br>
-                    <button data-id="${product.id}" class="btn btn-eliminar btn-danger">Eliminar</button>
-                </td>
+                     <button class="btn btn-danger" onclick="fn_eliminar(` + product.id + `);">Eliminar</button>
+                    </td>
             `;
 
             content_products.appendChild(fila);
         });
 
-        // Agrega el evento click a los botones de eliminar
-        document.querySelectorAll('.btn-eliminar').forEach(btn => {
-            btn.addEventListener('click', async function () {
-                if (confirm('¿Está seguro de eliminar este producto?')) {
-                    const datos = new FormData();
-                    datos.append('id', this.getAttribute('data-id'));
-                    let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=eliminar', {
-                        method: 'POST',
-                        mode: 'cors',
-                        cache: 'no-cache',
-                        body: datos
-                    });
-                    let json = await respuesta.json();
-                    alert(json.msg);
-                    if (json.status) {
-                        view_products(); // Recarga la lista
-                    }
-                }
-            });
-        });
+
 
     } catch (error) {
         console.log('Error al obtener productos: ' + error);
@@ -121,7 +103,7 @@ async function view_products() {
 }
 
 // Cargar productos al cargar la página
-if (document.getElementById('content_product')) {
+if (document.getElementById('content_products')) {
     view_products();
 }
 
@@ -161,9 +143,9 @@ async function edit_product() {
 }
 
 // Evento para formulario de edición
-if (document.querySelector('#frm_edit_products')) {
-    let frm_products = document.querySelector('#frm_edit_products');
-    frm_products.onsubmit = function (e) {
+if (document.querySelector('#frm_edit_product')) {
+    let frm_product = document.querySelector('#frm_edit_product');
+    frm_product.onsubmit = function (e) {
         e.preventDefault();
         validar_form("actualizar");
     }
@@ -171,7 +153,7 @@ if (document.querySelector('#frm_edit_products')) {
 
 // Validar y actualizar producto
 async function actualizarProducto() {
-    const datos = new FormData(frm_edit_products);
+    const datos = new FormData(frm_edit_product);
     let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=actualizar', {
         method: 'POST',
         mode: 'cors',
@@ -180,7 +162,8 @@ async function actualizarProducto() {
     });
     json = await respuesta.json();
     if (!json.status) {
-        alert("Error al actualizar producto: " + json.msg);
+        alert("Oooooops, ocurrio un error al actualizar, intentelo nuevamente");
+        console.log(json.msg);
         return;
     } else {
         alert(json.msg);
@@ -205,7 +188,7 @@ async function eliminar(id) {
     });
     json = await respuesta.json();
     if (!json.status) {
-        alert("");
+        alert("Oooooops, ocurrio un error al eliminar persona, intentelo mas tarde");
         console.log(json.msg);
         return;
     } else {
@@ -268,3 +251,23 @@ async function cargar_proveedores() {
     }
 }
 
+// Agrega el evento click a los botones de eliminar
+document.querySelectorAll('.btn-eliminar').forEach(btn => {
+    btn.addEventListener('click', async function () {
+        if (confirm('¿Está seguro de eliminar este producto?')) {
+            const datos = new FormData();
+            datos.append('id', this.getAttribute('data-id'));
+            let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=eliminar', {
+                method: 'POST',
+                mode: 'cors',
+                cache: 'no-cache',
+                body: datos
+            });
+            let json = await respuesta.json();
+            alert(json.msg);
+            if (json.status) {
+                view_products(); // Recarga la lista
+            }
+        }
+    });
+});

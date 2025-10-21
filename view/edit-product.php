@@ -1,7 +1,6 @@
 <!-- inicio de cuerpo de pagina -->
 <div class="container" style="margin-top:17px">
     <div class="card">
-
         <div class="card-header" style="text-align: center;">Editar Datos de Producto </div>
         <?php
         $producto_id = "";
@@ -55,9 +54,9 @@
                         <div class="col-sm-10">
                             <select class="form-control" name="id_categoria" id="id_categoria" required>
                                 <option value="" disabled selected>seleccione</option>
-                                <option value="1">id = 1</option>
-                                <option value="2">id = 2</option>
-                                <option value="3">id = 3</option>
+                                <option value="1">categoria 1</option>
+                                <option value="2">categoria 2</option>
+                                <option value="3">categoria 3</option>
                             </select>
 
                         </div>
@@ -71,12 +70,12 @@
                     <div class="mb-3 row">
                         <label for="imagen" class="col-sm-2 col-form-label">Imagen:</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control" id="imagen" name="imagen" required>
+                            <input type="file" class="form-control" id="imagen" name="imagen" accept="">
                             <div class="mb-3 row">
                             </div>
                         </div>
                     </div>
-                    <div class="mb-3 row">
+                    <!-- <div class="mb-3 row">
                         <label for="id_proveedor" class="col-sm-2 col-form-label">Proveedor:</label>
                         <div class="col-sm-10">
                             <select class="form-control" name="id_proveedor" id="id_proveedor" required>
@@ -86,9 +85,10 @@
                                 <option value="3">id = 3</option>
                             </select>
                         </div>
-                    </div>
+                    </div> -->
                     <div style=" display:flex; justify-content:center; gap:20px">
                         <button type="submit" class="btn btn-success">Actualizar</button>
+                        <button type="reset"   class="btn btn-primary" id="clearBtn">Limpiar</button>
                         <a hret="<?= BASE_URL ?>product" class="btn btn-danger">Cancelar</a>
 
                     </div>
