@@ -6,8 +6,9 @@ function validar_form(tipo) {
     let stock = document.getElementById("stock").value;
     let id_categoria = document.getElementById("id_categoria").value;
     let fecha_vencimiento = document.getElementById("fecha_vencimiento").value;
+    let id_proveedor = document.getElementById("id_proveedor") ? document.getElementById("id_proveedor").value : "";
     //let imagen = document.getElementById("imagen").value;
-    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "") {
+    if (codigo == "" || nombre == "" || detalle == "" || precio == "" || stock == "" || id_categoria == "" || fecha_vencimiento == "" || id_proveedor == "") {
         Swal.fire({
             title: "Error campos vacios!",
             icon: "error",
@@ -38,7 +39,7 @@ async function registrarProducto() {
         //capturar campos de formulario (HTML)
         const datos = new FormData(frm_product);
         //enviar datos a controlador
-        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=registrar_productos', {
+        let respuesta = await fetch(base_url + 'control/ProductoController.php?tipo=registrar', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -76,20 +77,16 @@ async function view_products() {
                 <td>${index + 1}</td>
                 <td>${product.codigo}</td>
                 <td>${product.nombre}</td>
-                <td>${product.detalle}</td>
                 <td>${product.precio}</td>
                 <td>${product.stock}</td>
                 <td>${product.id_categoria}</td>
-                <!--
                 <td>${product.fecha_vencimiento}</td>
-                -->
-                <td>${product.id_proveedor}</td>
-                
+                <td><img src="${base_url}${product.imagen}" alt="${product.nombre}" width="50" height="50"></td>
+                <td>${product.estado == 1 ? 'Activo' : 'Inactivo'}</td>
                 <td>
-                    <a href="` + base_url + `edit-product/` + product.id + `" class="btn btn-success">Editar</a>
-                    <br>
-                     <button class="btn btn-danger" onclick="fn_eliminar(` + product.id + `);">Eliminar</button>
-                    </td>
+                    <a href="` + base_url + `edit-product/` + product.id + `" class="btn btn-primary btn-sm">Editar</a>
+                    <button class="btn btn-danger btn-sm" onclick="fn_eliminar(` + product.id + `);">Eliminar</button>
+                </td>
             `;
 
             content_products.appendChild(fila);
@@ -136,6 +133,14 @@ async function edit_product() {
         document.getElementById('id_categoria').value = json.data.id_categoria;
         document.getElementById('fecha_vencimiento').value = json.data.fecha_vencimiento;
         document.getElementById('id_proveedor').value = json.data.id_proveedor;
+
+        // Mostrar imagen actual
+        const imagenActualDiv = document.getElementById('imagen_actual');
+        if (json.data.imagen) {
+            imagenActualDiv.innerHTML = `<img src="${base_url}${json.data.imagen}" alt="Imagen actual" width="100" height="100"><br><small>Imagen actual</small>`;
+        } else {
+            imagenActualDiv.innerHTML = '<small>No hay imagen</small>';
+        }
 
     } catch (error) {
         console.log('Error al cargar producto: ' + error);

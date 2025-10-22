@@ -70,9 +70,8 @@
                     <div class="mb-3 row">
                         <label for="imagen" class="col-sm-2 col-form-label">Imagen:</label>
                         <div class="col-sm-10">
-                            <input type="file" class="form-control" id="imagen" name="imagen" accept="">
-                            <div class="mb-3 row">
-                            </div>
+                            <input type="file" class="form-control" id="imagen" name="imagen" accept=".jpg, .jpeg, .png">
+                            <div id="imagen_actual" class="mt-2"></div>
                         </div>
                     </div>
                     <!-- <div class="mb-3 row">
@@ -86,10 +85,16 @@
                             </select>
                         </div>
                     </div> -->
+                     <div class="mb-3 row">
+                        <label for="estado" class="col-sm-2 col-form-label">Estado:</label>
+                        <div class="col-sm-10">
+                            <input type="text" class="form-control" id="estado" name="estado" required>
+                        </div>
+                    </div>
                     <div style=" display:flex; justify-content:center; gap:20px">
                         <button type="submit" class="btn btn-success">Actualizar</button>
                         <button type="reset"   class="btn btn-primary" id="clearBtn">Limpiar</button>
-                        <a hret="<?= BASE_URL ?>product" class="btn btn-danger">Cancelar</a>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href = base_url + 'products';">Cancelar</button>
 
                     </div>
             </form>

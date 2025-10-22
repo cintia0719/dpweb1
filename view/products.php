@@ -13,6 +13,7 @@
                 <th class="text-center">Stock</th>
                 <th class="text-center">Categoria</th>
                 <th class="text-center">Fecha_vencimiento</th>
+                <th class="text-center">Imagen</th>
                 <th class="text-center">Estado</th>
                 <th class="text-center">Acciones</th>
 

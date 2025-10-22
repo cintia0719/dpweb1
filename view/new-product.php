@@ -72,7 +72,7 @@
                     <div style=" display:flex; justify-content:center; gap:20px">
                         <button type="submit" class="btn btn-info">Registrar</button>
                         <button type="reset" class="btn btn-primary" id="clearBtn">Limpiar</button>
-                        <a href="<?= BASE_URL ?>product" class="btn btn-danger">Cancelar</a>
+                        <button type="button" class="btn btn-danger" onclick="window.location.href = base_url + 'products';">Cancelar</button>
 
                     </div>
             </form>

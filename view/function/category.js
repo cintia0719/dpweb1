@@ -31,7 +31,7 @@ async function registrarCategoria() {
         //capturar campos de formulario (HTML)
         const datos = new FormData(frm_category);
         //enviar datos a controlador
-        let respuesta = await fetch(base_url + 'control/CategoriaController.php?tipo=registrar_categorias', {
+        let respuesta = await fetch(base_url + 'control/CategoriaController.php?tipo=registrar', {
             method: 'POST',
             mode: 'cors',
             cache: 'no-cache',
@@ -42,6 +42,7 @@ async function registrarCategoria() {
         if (json.status) { //true
             alert(json.msg);
             document.getElementById('frm_category').reset();
+            location.replace(base_url + 'categories');
         } else {
             alert(json.msg);
         }
@@ -54,7 +55,7 @@ async function registrarCategoria() {
 async function view_categorias() {
     try {
         let respuesta = await fetch(base_url + 'control/CategoriaController.php?tipo=ver_categorias', {
-            method: 'POST',
+            method: 'GET',
             mode: 'cors',
             cache: 'no-cache'
         });
@@ -62,30 +63,34 @@ async function view_categorias() {
         let content_categories = document.getElementById('content_categories');
         content_categories.innerHTML = ''; // limpiamos antes de insertar
 
-        json.data.forEach(categoria => {
+        if (json.status && json.data) {
+            let cont = 1;
+            json.data.forEach(categoria => {
+                let nueva_fila = document.createElement("tr");
+                nueva_fila.id = "fila" + categoria.id;
+                nueva_fila.className = "filas_tabla";
+                nueva_fila.innerHTML = `
+                                <td>${cont}</td>
+                                <td>${categoria.nombre}</td>
+                                <td>${categoria.detalle}</td>
+                                <td>
+                                    <a href="${base_url}edit-category/${categoria.id}">Editar</a>
+                                    <button class="btn btn-danger" onclick="fn_eliminar(${categoria.id});">Eliminar</button>
+                                </td>
+                    `;
+                cont++;
+                content_categories.appendChild(nueva_fila);
+            });
+        } else {
+            console.log('No hay categorías o error: ' + json.msg);
+        }
 
-            let nueva_fila = document.createElement("tr");
-            nueva_fila.id = "fila" + categoria.id;
-            nueva_fila.className = "filas_tabla";
-            nueva_fila.innerHTML = `
-                            <td>${cont}</td>
-                            <td>${categoria.nombre}</td>
-                            <td>${categoria.detalle}</td>
-                            <td>
-                                <a href="`+ base_url + `edit-category/` + category.id + `">Editar</a>
-                                <button class="btn btn-danger" onclick="fn_eliminar(` + category.id + `);">Eliminar</button>
-                            </td>
-                `;
-            cont++;
-            content.appendChild(fila);
-        });
-    
     } catch (error) {
-    console.log('error en mostrar categoria ' + error);
-}
+        console.log('error en mostrar categoria ' + error);
+    }
 }
 if (document.getElementById('content_categories')) {
-    view_categories();
+    view_categorias();
 }
 
 
@@ -114,7 +119,7 @@ async function edit_category() {
     }
 }
 if (document.querySelector('#frm_edit_category')) {
-    edit_categoria();
+    edit_category();
     // evita que se envie el formulario
     let frm_category = document.querySelector('#frm_edit_category');
     frm_category.onsubmit = function (e) {
@@ -132,13 +137,14 @@ async function actualizarCategoria() {
         cache: 'no-cache',
         body: datos
     });
-    json = await respuesta.json();
+    let json = await respuesta.json();
     if (!json.status) {
         alert("Oooooops, ocurrio un error al actualizar, intentelo nuevamente");
         console.log(json.msg);
         return;
     } else {
         alert(json.msg);
+        location.replace(base_url + 'categories');
     }
 }
 
@@ -150,20 +156,20 @@ async function fn_eliminar(id) {
 }
 async function eliminar(id) {
     let datos = new FormData();
-    datos.append('id_categoria', id);
+    datos.append('id', id);
     let respuesta = await fetch(base_url + 'control/CategoriaController.php?tipo=eliminar', {
         method: 'POST',
         mode: 'cors',
         cache: 'no-cache',
         body: datos
     });
-    json = await respuesta.json();
+    let json = await respuesta.json();
     if (!json.status) {
-        alert("Oooooops, ocurrio un error al eliminar categhoria, intentelo mas tarde");
+        alert("Oooooops, ocurrio un error al eliminar categoria, intentelo mas tarde");
         console.log(json.msg);
         return;
     } else {
         alert(json.msg);
-        location.replace(base_url + 'category');
+        location.replace(base_url + 'categories');
     }
 }

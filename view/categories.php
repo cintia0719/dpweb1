@@ -9,7 +9,7 @@
             <th class="text-center">Nombre</th>
             <th class="text-center">Detalle</th>
             <th class="text-center">Acciones</th>
-            
+
         </tr>
     </thead>
     <tbody id="content_categories">
